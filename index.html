@@ -1,0 +1,1195 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Giải Pháp Tập Trung Cho Sinh Viên</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide-react@latest/dist/lucide-react.js"></script>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #f1f5f9; /* slate-100 */
+      }
+      .form-container,
+      .view-container {
+        transition: all 0.5s ease-in-out;
+      }
+      .nav-link {
+        transition: all 0.2s ease-in-out;
+      }
+      .nav-link.active {
+        background-color: #4f46e5; /* indigo-600 */
+        color: white;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body class="flex items-center justify-center min-h-screen">
+    <div class="w-full max-w-6xl mx-auto p-4">
+      <!-- Authentication Section: Login & Register -->
+      <div id="authSection">
+        <!-- Login Form -->
+        <div
+          id="loginForm"
+          class="form-container bg-white p-8 md:p-12 rounded-2xl shadow-lg max-w-lg mx-auto"
+        >
+          <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-slate-800">
+              Chào mừng trở lại!
+            </h1>
+            <p class="text-slate-500 mt-2">
+              Đăng nhập để tiếp tục hành trình của bạn.
+            </p>
+          </div>
+          <form onsubmit="handleLogin(event)">
+            <div class="space-y-6">
+              <div>
+                <label
+                  for="login-email"
+                  class="block text-sm font-medium text-slate-700 mb-1"
+                  >Email</label
+                >
+                <input
+                  type="email"
+                  id="login-email"
+                  class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+                  placeholder="email@vi-du.com"
+                  required
+                />
+              </div>
+              <div>
+                <label
+                  for="login-password"
+                  class="block text-sm font-medium text-slate-700 mb-1"
+                  >Mật khẩu</label
+                >
+                <input
+                  type="password"
+                  id="login-password"
+                  class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+                  placeholder="••••••••"
+                  required
+                />
+              </div>
+            </div>
+            <button
+              type="submit"
+              class="w-full bg-indigo-600 text-white font-semibold py-3 rounded-lg mt-8 hover:bg-indigo-700 transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Đăng nhập
+            </button>
+            <p class="text-center text-sm text-slate-600 mt-6">
+              Chưa có tài khoản?
+              <a
+                href="#"
+                onclick="toggleForms()"
+                class="font-semibold text-indigo-600 hover:underline"
+                >Đăng ký ngay</a
+              >
+            </p>
+          </form>
+        </div>
+
+        <!-- Register Form (Initially Hidden) -->
+        <div
+          id="registerForm"
+          class="form-container bg-white p-8 md:p-12 rounded-2xl shadow-lg hidden max-w-2xl mx-auto"
+        >
+          <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-slate-800">Tạo tài khoản mới</h1>
+            <p class="text-slate-500 mt-2">
+              Cùng bắt đầu cải thiện sự tập trung của bạn!
+            </p>
+          </div>
+          <form onsubmit="handleLogin(event)">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label
+                  for="reg-fullname"
+                  class="block text-sm font-medium text-slate-700 mb-1"
+                  >Họ và Tên</label
+                >
+                <input
+                  type="text"
+                  id="reg-fullname"
+                  class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+                  placeholder="Nguyễn Văn A"
+                  required
+                />
+              </div>
+              <div>
+                <label
+                  for="reg-email"
+                  class="block text-sm font-medium text-slate-700 mb-1"
+                  >Email</label
+                >
+                <input
+                  type="email"
+                  id="reg-email"
+                  class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+                  placeholder="email@vi-du.com"
+                  required
+                />
+              </div>
+              <div>
+                <label
+                  for="reg-major"
+                  class="block text-sm font-medium text-slate-700 mb-1"
+                  >Chuyên ngành</label
+                >
+                <input
+                  type="text"
+                  id="reg-major"
+                  class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+                  placeholder="VD: Công nghệ thông tin"
+                  required
+                />
+              </div>
+              <div>
+                <label
+                  for="reg-cohort"
+                  class="block text-sm font-medium text-slate-700 mb-1"
+                  >Khóa</label
+                >
+                <input
+                  type="text"
+                  id="reg-cohort"
+                  class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+                  placeholder="VD: K51"
+                  required
+                />
+              </div>
+              <div class="md:col-span-2">
+                <label
+                  for="reg-password"
+                  class="block text-sm font-medium text-slate-700 mb-1"
+                  >Mật khẩu</label
+                >
+                <input
+                  type="password"
+                  id="reg-password"
+                  class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+                  placeholder="••••••••"
+                  required
+                />
+              </div>
+            </div>
+            <button
+              type="submit"
+              class="w-full bg-indigo-600 text-white font-semibold py-3 rounded-lg mt-8 hover:bg-indigo-700 transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Đăng ký
+            </button>
+            <p class="text-center text-sm text-slate-600 mt-6">
+              Đã có tài khoản?
+              <a
+                href="#"
+                onclick="toggleForms()"
+                class="font-semibold text-indigo-600 hover:underline"
+                >Đăng nhập</a
+              >
+            </p>
+          </form>
+        </div>
+      </div>
+
+      <!-- Main Content Section (Initially Hidden) -->
+      <div
+        id="mainContent"
+        class="hidden bg-white rounded-2xl shadow-lg p-4 sm:p-8"
+      >
+        <div class="flex flex-col md:flex-row gap-8">
+          <!-- Sidebar Navigation -->
+          <aside class="w-full md:w-1/4">
+            <div class="text-center mb-6">
+              <h2 class="text-2xl font-bold text-indigo-600">Focus Hub</h2>
+              <p class="text-sm text-slate-500">Xin chào UEHers!</p>
+            </div>
+            <nav class="flex flex-col space-y-2">
+              <a
+                href="#"
+                id="nav-home"
+                class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg"
+                onclick="showView('homeView')"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                  <polyline points="9 22 9 12 15 12 15 22" />
+                </svg>
+                <span>Tổng quan</span>
+              </a>
+              <a
+                href="#"
+                id="nav-forum"
+                class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg"
+                onclick="showView('forumView')"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20Z" />
+                  <path d="M16 16s-2-3-6-3-6 3-6 3" />
+                  <path
+                    d="M9.5 9.5a.5.5 Bổ sung thêm vào code lúc nãy thêm tính năng tác động từ bản thân có nhiều tác động nhỏ và tác động từ ngoại cảnh cũng có nhiều tác động nhỏ va thêm link học chung trực tuyến 0 1 1 0-1 .5.5 0 0 1 0 1Z"
+                  />
+                  <path d="M14.5 9.5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1Z" />
+                </svg>
+                <span>Diễn đàn Ngành</span>
+              </a>
+              <a
+                href="#"
+                id="nav-tips"
+                class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg"
+                onclick="showView('tipsView')"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M15.5 7.5a.5.5 0 0 1 0-1h.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-.5Z"
+                  />
+                  <path d="M12 12h.01" />
+                  <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                  <path
+                    d="M8.5 7.5a.5.5 0 0 1 0-1h.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-.5Z"
+                  />
+                  <path d="m12 17 1-1 1 1" />
+                </svg>
+                <span>Góc Chia Sẻ & Cảm Hứng</span>
+              </a>
+              <a
+                href="#"
+                id="nav-resources"
+                class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg"
+                onclick="showView('resourcesView')"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"
+                  />
+                  <path d="M14 12V8" />
+                  <path d="M12 10h4" />
+                </svg>
+                <span>Tài Nguyên Học Tập</span>
+              </a>
+              <hr class="my-2 border-slate-200" />
+              <button
+                onclick="handleLogout()"
+                class="w-full flex items-center gap-3 px-4 py-3 text-left rounded-lg text-slate-600 hover:bg-slate-100 transition"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                  <polyline points="16 17 21 12 16 7" />
+                  <line x1="21" x2="9" y1="12" y2="12" />
+                </svg>
+                <span>Đăng xuất</span>
+              </button>
+            </nav>
+          </aside>
+
+          <!-- Main View Area -->
+          <main class="w-full md:w-3/4">
+            <!-- Home View -->
+            <div id="homeView" class="view-container">
+              <header class="text-left mb-8">
+                <h1 class="text-3xl md:text-4xl font-extrabold text-slate-800">
+                  Trạm dừng xao nhãng
+                </h1>
+                <p class="text-md text-slate-600 mt-2">
+                  Ý tưởng từ F4orceUEH,vững bước cùng UEHers
+                </p>
+              </header>
+              <div class="space-y-12">
+                <!-- NEW DETAILED INTERNAL FACTORS SECTION -->
+                <section>
+                  <h2
+                    class="text-2xl font-bold text-slate-800 inline-flex items-center mb-4"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="text-cyan-500 mr-3"
+                    >
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="12" y1="16" x2="12" y2="12"></line>
+                      <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                    </svg>
+                    Tác Động Từ Bản Thân
+                  </h2>
+                  <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div
+                      class="bg-cyan-50 border border-cyan-200 p-6 rounded-xl transform hover:-translate-y-1 transition-transform duration-300"
+                    >
+                      <h3 class="font-bold text-cyan-800 mb-2">
+                        Tâm lý & Động lực
+                      </h3>
+                      <p class="text-sm text-cyan-900">
+                        Căng thẳng, lo âu, thiếu mục tiêu rõ ràng. Hãy đặt mục
+                        tiêu nhỏ và tự thưởng cho bản thân.
+                      </p>
+                    </div>
+                    <div
+                      class="bg-cyan-50 border border-cyan-200 p-6 rounded-xl transform hover:-translate-y-1 transition-transform duration-300"
+                    >
+                      <h3 class="font-bold text-cyan-800 mb-2">
+                        Sức khỏe Thể chất
+                      </h3>
+                      <p class="text-sm text-cyan-900">
+                        Thiếu ngủ, ăn uống không điều độ. Một cơ thể khỏe mạnh
+                        là nền tảng cho trí óc minh mẫn.
+                      </p>
+                    </div>
+                    <div
+                      class="bg-cyan-50 border border-cyan-200 p-6 rounded-xl transform hover:-translate-y-1 transition-transform duration-300"
+                    >
+                      <h3 class="font-bold text-cyan-800 mb-2">
+                        Quản lý Thời gian
+                      </h3>
+                      <p class="text-sm text-cyan-900">
+                        Sự trì hoãn, thiếu kế hoạch. Áp dụng phương pháp
+                        Pomodoro để tăng hiệu suất.
+                      </p>
+                    </div>
+                  </div>
+                </section>
+
+                <!-- NEW DETAILED EXTERNAL FACTORS SECTION -->
+                <section>
+                  <h2
+                    class="text-2xl font-bold text-slate-800 inline-flex items-center mb-4"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="text-purple-500 mr-3"
+                    >
+                      <path d="M10.68 13.31a16 16 0 0 0 3.64 3.64"></path>
+                      <path d="M13.31 10.68a16 16 0 0 1 3.64 3.64"></path>
+                      <path d="M12 12a10 10 0 1 0-4.24-8.24"></path>
+                      <path d="M12 22a10 10 0 1 1 4.24-18.24"></path>
+                      <path d="M22 12a10 10 0 0 0-10-10"></path>
+                      <path d="M2 12a10 10 0 0 1 10 10"></path>
+                    </svg>
+                    Tác Động Từ Ngoại Cảnh
+                  </h2>
+                  <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div
+                      class="bg-purple-50 border border-purple-200 p-6 rounded-xl transform hover:-translate-y-1 transition-transform duration-300"
+                    >
+                      <h3 class="font-bold text-purple-800 mb-2">
+                        Mạng xã hội & Thông báo
+                      </h3>
+                      <p class="text-sm text-purple-900">
+                        Những thông báo liên tục gây gián đoạn. Hãy bật chế độ
+                        "Không làm phiền" khi học.
+                      </p>
+                    </div>
+                    <div
+                      class="bg-purple-50 border border-purple-200 p-6 rounded-xl transform hover:-translate-y-1 transition-transform duration-300"
+                    >
+                      <h3 class="font-bold text-purple-800 mb-2">
+                        Môi trường Học tập
+                      </h3>
+                      <p class="text-sm text-purple-900">
+                        Không gian ồn ào, bừa bộn. Hãy dọn dẹp và tạo một góc
+                        học tập yên tĩnh, truyền cảm hứng.
+                      </p>
+                    </div>
+                    <div
+                      class="bg-purple-50 border border-purple-200 p-6 rounded-xl transform hover:-translate-y-1 transition-transform duration-300"
+                    >
+                      <h3 class="font-bold text-purple-800 mb-2">
+                        Nội dung Bài giảng
+                      </h3>
+                      <p class="text-sm text-purple-900">
+                        Bài giảng khô khan, khó hiểu. Hãy chủ động tìm thêm
+                        video, tài liệu để hiểu sâu hơn.
+                      </p>
+                    </div>
+                  </div>
+                </section>
+
+                <section
+                  class="bg-gradient-to-br from-red-100 to-yellow-100 p-6 rounded-xl"
+                >
+                  <h2 class="text-2xl font-bold text-red-800 mb-4">
+                    Góc Vực Dậy Tinh Thần
+                  </h2>
+                  <p class="text-red-700 mb-4">
+                    Bạn cảm thấy mất động lực? Đây là không gian dành cho bạn.
+                    Hãy bắt đầu bằng một hành động nhỏ: đọc một câu chuyện
+                    truyền cảm hứng hoặc đặt một mục tiêu cho ngày hôm nay.
+                  </p>
+                  <button
+                    class="bg-white text-red-600 font-semibold py-2 px-4 rounded-lg shadow hover:bg-red-50 transition"
+                  >
+                    Đọc câu chuyện truyền cảm hứng
+                  </button>
+                  <div
+                    id="inspireQuote"
+                    class="hidden mt-4 flex flex-col items-center justify-center p-4 rounded-xl bg-white/80 border border-red-200 text-red-700 text-lg font-semibold shadow transition"
+                  >
+                    <span></span>
+                  </div>
+                </section>
+              </div>
+            </div>
+
+            <!-- Forum View -->
+            <div id="forumView" class="view-container hidden">
+              <header class="mb-8">
+                <h1 class="text-3xl md:text-4xl font-extrabold text-slate-800">
+                  Diễn Đàn Theo Ngành
+                </h1>
+                <p class="text-md text-slate-600 mt-2">
+                  Thảo luận, hỏi đáp và chia sẻ kiến thức cùng bạn bè trong
+                  ngành.
+                </p>
+              </header>
+              <div class="space-y-6">
+                <!-- Category: Economics -->
+                <div>
+                  <h3 class="text-xl font-bold text-slate-700 mb-3">
+                    Khoa Kinh Tế
+                  </h3>
+                  <div class="bg-slate-50 p-4 rounded-lg space-y-3">
+                    <div
+                      class="flex justify-between items-center hover:bg-slate-200 p-2 rounded cursor-pointer"
+                      onclick="showForumDetail('Khoa Kinh Tế', 0)"
+                    >
+                      <span
+                        >[Hỏi đáp] Cách ôn thi hiệu quả môn Kinh tế vĩ mô?</span
+                      >
+                      <span class="text-sm text-slate-500">5 trả lời</span>
+                    </div>
+                    <div
+                      class="flex justify-between items-center hover:bg-slate-200 p-2 rounded cursor-pointer"
+                      onclick="showForumDetail('Khoa Kinh Tế', 1)"
+                    >
+                      <span>[Thảo luận] Xu hướng ngành Marketing 2025</span>
+                      <span class="text-sm text-slate-500">5 trả lời</span>
+                    </div>
+                  </div>
+                </div>
+                <!-- Category: IT -->
+                <div>
+                  <h3 class="text-xl font-bold text-slate-700 mb-3">
+                    Khoa Công nghệ Thông tin
+                  </h3>
+                  <div class="bg-slate-50 p-4 rounded-lg space-y-3">
+                    <div
+                      class="flex justify-between items-center hover:bg-slate-200 p-2 rounded cursor-pointer"
+                      onclick="showForumDetail('Khoa Công nghệ Thông tin', 0)"
+                    >
+                      <span>[Tài liệu] Tổng hợp cheatsheet Git và Github</span>
+                      <span class="text-sm text-slate-500">8 trả lời</span>
+                    </div>
+                    <div
+                      class="flex justify-between items-center hover:bg-slate-200 p-2 rounded cursor-pointer"
+                      onclick="showForumDetail('Khoa Công nghệ Thông tin', 1)"
+                    >
+                      <span
+                        >[Hỏi đáp] Lỗi "null pointer exception" trong Java</span
+                      >
+                      <span class="text-sm text-slate-500">10 trả lời</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tips View -->
+            <div id="tipsView" class="view-container hidden">
+              <header class="mb-8">
+                <h1 class="text-3xl md:text-4xl font-extrabold text-slate-800">
+                  Góc Chia Sẻ & Cảm Hứng
+                </h1>
+                <p class="text-md text-slate-600 mt-2">
+                  Nơi mọi người chia sẻ mẹo học tập hiệu quả và những câu chuyện
+                  truyền cảm hứng.
+                </p>
+              </header>
+              <div class="bg-slate-50 p-6 rounded-xl mb-8">
+                <h3 class="text-lg font-semibold text-slate-800 mb-3">
+                  Chia sẻ mẹo của bạn
+                </h3>
+                <textarea
+                  id="shareInput"
+                  class="w-full p-3 border border-slate-300 rounded-lg"
+                  rows="3"
+                  placeholder="Viết mẹo học tập hoặc câu chuyện của bạn ở đây..."
+                ></textarea>
+                <button
+                  id="shareBtn"
+                  class="mt-3 bg-indigo-600 text-white font-semibold py-2 px-5 rounded-lg hover:bg-indigo-700 transition"
+                >
+                  Gửi chia sẻ
+                </button>
+                <div id="shareList" class="mt-6 space-y-4"></div>
+              </div>
+              <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white p-5 rounded-lg shadow">
+                  <p class="text-slate-700">
+                    "Mình dùng phương pháp '50/10' (50 phút học, 10 phút nghỉ
+                    hoàn toàn không dùng điện thoại) thấy rất hiệu quả. Não được
+                    nghỉ ngơi và quay lại tập trung tốt hơn hẳn."
+                  </p>
+                  <p
+                    class="text-right text-sm font-semibold text-indigo-600 mt-3"
+                  >
+                    - An Nguyễn, K48 CNTT
+                  </p>
+                </div>
+                <div class="bg-white p-5 rounded-lg shadow">
+                  <p class="text-slate-700">
+                    "Đừng cố học thuộc lòng. Hãy thử giải thích kiến thức đó cho
+                    một người không cùng ngành. Nếu họ hiểu, tức là bạn đã thực
+                    sự hiểu vấn đề."
+                  </p>
+                  <p
+                    class="text-right text-sm font-semibold text-indigo-600 mt-3"
+                  >
+                    - Bích Phương, K50 Marketing
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- UPDATED Resources View -->
+            <div id="resourcesView" class="view-container hidden">
+              <header class="mb-8">
+                <h1 class="text-3xl md:text-4xl font-extrabold text-slate-800">
+                  Tài Nguyên Học Tập
+                </h1>
+                <p class="text-md text-slate-600 mt-2">
+                  Tổng hợp các liên kết và công cụ hữu ích cho việc học trực
+                  tuyến.
+                </p>
+              </header>
+              <div class="grid md:grid-cols-2 gap-4">
+                <a
+                  href="https://coursera.org"
+                  target="_blank"
+                  class="block bg-slate-50 p-4 rounded-lg hover:bg-slate-200 transition"
+                >
+                  <h4 class="font-semibold text-slate-800">Coursera</h4>
+                  <p class="text-sm text-slate-600">
+                    Các khóa học từ các trường đại học hàng đầu thế giới.
+                  </p>
+                </a>
+                <a
+                  href="https://khanacademy.org"
+                  target="_blank"
+                  class="block bg-slate-50 p-4 rounded-lg hover:bg-slate-200 transition"
+                >
+                  <h4 class="font-semibold text-slate-800">Khan Academy</h4>
+                  <p class="text-sm text-slate-600">
+                    Học miễn phí mọi thứ, từ Toán đến Lịch sử nghệ thuật.
+                  </p>
+                </a>
+                <a
+                  href="https://www.notion.so"
+                  target="_blank"
+                  class="block bg-slate-50 p-4 rounded-lg hover:bg-slate-200 transition"
+                >
+                  <h4 class="font-semibold text-slate-800">Notion</h4>
+                  <p class="text-sm text-slate-600">
+                    Công cụ ghi chú và quản lý công việc mạnh mẽ.
+                  </p>
+                </a>
+                <a
+                  href="https://www.edx.org/"
+                  target="_blank"
+                  class="block bg-slate-50 p-4 rounded-lg hover:bg-slate-200 transition"
+                >
+                  <h4 class="font-semibold text-slate-800">edX</h4>
+                  <p class="text-sm text-slate-600">
+                    Truy cập hơn 3000 khóa học từ các trường đại học lớn.
+                  </p>
+                </a>
+                <a
+                  href="https://www.udemy.com/"
+                  target="_blank"
+                  class="block bg-slate-50 p-4 rounded-lg hover:bg-slate-200 transition"
+                >
+                  <h4 class="font-semibold text-slate-800">Udemy</h4>
+                  <p class="text-sm text-slate-600">
+                    Thị trường học tập trực tuyến với vô vàn chủ đề.
+                  </p>
+                </a>
+                <a
+                  href="https://www.youtube.com/learning"
+                  target="_blank"
+                  class="block bg-slate-50 p-4 rounded-lg hover:bg-slate-200 transition"
+                >
+                  <h4 class="font-semibold text-slate-800">YouTube Learning</h4>
+                  <p class="text-sm text-slate-600">
+                    Kênh học tập chính thức với nội dung đa dạng.
+                  </p>
+                </a>
+                <a
+                  href="https://calendar.google.com/"
+                  target="_blank"
+                  class="block bg-slate-50 p-4 rounded-lg hover:bg-slate-200 transition"
+                >
+                  <h4 class="font-semibold text-slate-800">Google Calendar</h4>
+                  <p class="text-sm text-slate-600">
+                    Công cụ lập kế hoạch và quản lý thời gian hiệu quả.
+                  </p>
+                </a>
+              </div>
+            </div>
+          </main>
+          <div
+            id="forumModal"
+            class="fixed inset-0 bg-black/40 flex items-center justify-center z-50 hidden"
+          >
+            <div
+              class="bg-white rounded-xl shadow-lg max-w-xl w-full p-6 relative"
+            >
+              <button
+                id="closeForumModal"
+                class="absolute top-2 right-2 text-slate-500 hover:text-red-600 text-xl font-bold"
+              >
+                &times;
+              </button>
+              <div
+                id="forumModalContent"
+                class="max-h-[80vh] overflow-y-auto pr-2"
+              ></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const authSection = document.getElementById("authSection");
+      const mainContent = document.getElementById("mainContent");
+      const loginForm = document.getElementById("loginForm");
+      const registerForm = document.getElementById("registerForm");
+      const views = document.querySelectorAll(".view-container");
+      const navLinks = document.querySelectorAll(".nav-link");
+      const inspiringQuotes = [
+        "Thành công là kết quả của sự kiên trì, nỗ lực mỗi ngày.",
+        "Đừng sợ thất bại, hãy sợ việc không dám thử.",
+        "Mỗi ngày là một cơ hội mới để tiến bộ hơn hôm qua.",
+        "Chỉ cần bạn không dừng lại, việc bạn tiến chậm không thành vấn đề.",
+        "Hãy tin vào chính mình, bạn có thể làm được nhiều hơn bạn nghĩ.",
+        "Khó khăn là một phần của hành trình trưởng thành.",
+        "Hãy bắt đầu từ những việc nhỏ, thành công sẽ đến từ đó.",
+        "Không ai có thể thay đổi quá khứ, nhưng bạn có thể thay đổi tương lai.",
+        "Học tập là chìa khóa mở ra cánh cửa thành công.",
+        "Mỗi thất bại là một bài học quý giá cho thành công sau này.",
+      ];
+
+      let forumData = {
+        "Khoa Kinh Tế": [
+          {
+            title: "[Hỏi đáp] Cách ôn thi hiệu quả môn Kinh tế vĩ mô?",
+            answers: [
+              {
+                user: "Nguyễn Tấn An – Logistics và Quản lý chuỗi cung ứng K51",
+                text: "Theo kinh nghiệm của mình thì nên hệ thống hóa kiến thức bằng sơ đồ tư duy sau mỗi chương. Môn này nhiều mô hình với lý thuyết dễ lẫn lộn lắm, vẽ ra sẽ thấy mối liên kết giữa chúng, dễ nhớ hơn nhiều.",
+              },
+              {
+                user: "Trần Khánh Minh – Logistics và Quản lý chuỗi cung ứng K51",
+                text: "Mình thấy quan trọng nhất là phải làm thật nhiều bài tập, đặc biệt là các dạng bài về tính toán GDP, lạm phát, thất nghiệp. Lý thuyết đọc xong có thể hiểu nhưng không làm bài tập thì vào phòng thi dễ bị 'khớp' lắm. Mọi người nên tìm thêm đề thi các năm trước để luyện.",
+              },
+              {
+                user: "Nguyễn Minh Anh – Kế toán doanh nghiệp K51",
+                text: "Mình thì học theo nhóm. Mỗi người soạn một chương rồi giảng lại cho các bạn khác. Cách này giúp mình hiểu sâu vấn đề hơn và khi có chỗ nào không hiểu thì hỏi được luôn. Với lại học cùng nhau có động lực hơn hẳn.",
+              },
+              {
+                user: "Lê Thúy Vy – Kế toán doanh nghiệp K51",
+                text: "Đừng học tủ nhé mọi người! Thầy cô năm nay có thể ra đề khác lắm. Cứ nắm chắc các khái niệm cốt lõi như Tổng cung - Tổng cầu (AD-AS), mô hình IS-LM, và các chính sách tài khóa, tiền tệ là ổn. Hiểu bản chất thì đề ra kiểu gì cũng làm được.",
+              },
+              {
+                user: "Trương Thị Yến Nhung – Thương mại điện tử K51",
+                text: "Cảm ơn mọi người nhiều ạ! Các cách trên hay quá, mình sẽ thử áp dụng. Mọi người có file tổng hợp công thức hay bài tập có lời giải môn này không cho mình xin với!",
+              },
+            ],
+          },
+          {
+            title: "[Thảo luận] Xu hướng ngành Marketing 2025",
+            answers: [
+              {
+                user: "Nguyễn Thị Chúc Ly – Marketing K51",
+                text: "Theo mình, AI trong Marketing chắc chắn là xu hướng chủ đạo rồi. Các công cụ AI bây giờ giúp cá nhân hóa trải nghiệm khách hàng, tối ưu quảng cáo và phân tích dữ liệu tốt hơn nhiều, không thể bỏ qua được.",
+              },
+              {
+                user: "Lê Thúy Kiều – Ngân hàng K51",
+                text: "Mình đồng ý, nhưng đừng quên Video Marketing Ngắn nhé. Mấy nền tảng như TikTok, Instagram Reels, YouTube Shorts vẫn đang thống trị giới trẻ. Doanh nghiệp nào không sáng tạo nội dung video ngắn, hấp dẫn là tự mình đi lùi.",
+              },
+              {
+                user: "Nguyễn Trung Huân – Tài chính K50",
+                text: "Dạo này mình thấy mọi người quan tâm nhiều đến Marketing bền vững. Người tiêu dùng giờ thông thái lắm, họ ưu tiên các sản phẩm thân thiện với môi trường. Các chiến dịch mà nhấn mạnh được yếu tố bền vững mình thấy dễ được đón nhận hơn hẳn.",
+              },
+              {
+                user: "Mạc Thành Nên – Kế toán doanh nghiệp K51",
+                text: "Mọi người cho mình hỏi có ai bắt đầu làm Tối ưu hóa tìm kiếm bằng giọng nói chưa? Với sự bùng nổ của loa thông minh và trợ lý ảo, mình nghĩ đây là mảng rất cần thiết phải đi trước.",
+              },
+              {
+                user: "Nguyễn Quang Huy – Kinh doanh nông nghiệp K51",
+                text: "Về mảng Influencer Marketing, mình thấy xu hướng đang chuyển dịch sang các bạn micro-influencer và nano-influencer. Họ có thể không có follow khủng nhưng tạo cảm giác chân thực và chi phí cũng hợp lý hơn nhiều.",
+              },
+            ],
+          },
+        ],
+        "Khoa Công nghệ Thông tin": [
+          {
+            title: "[Tài liệu] Tổng hợp cheatsheet Git và Github",
+            answers: [
+              {
+                user: "Nguyễn Tân Khoa – Kỹ thuật phần mềm K46 (Người đăng)",
+                text: 'Chào mọi người, mình có tổng hợp lại một file "cheatsheet" (bảng tóm tắt lệnh) về Git và Github. Rất hữu ích cho các bạn mới làm quen hoặc cả những ai hay quên lệnh. Mọi người tải về dùng nhé!',
+              },
+              {
+                user: "Nguyễn Anh Khoa – Công nghệ và Đổi mới sáng tạo K51",
+                text: "Cảm ơn bạn nhiều nhé! Đúng thứ mình đang cần. Hay quên nhất mấy lệnh git reset với git revert. 👍",
+              },
+              {
+                user: "Nguyễn Phương Anh – Công nghệ Tài chính K49",
+                text: "Tuyệt vời! Mình bổ sung thêm một link về cách viết file .gitignore cho chuẩn, thấy cũng quan trọng không kém: [Link tham khảo Github Gitignore](https://github.com/github/gitignore).",
+              },
+              {
+                user: "Trần Thuận Giàu – Công nghệ và Đổi mới sáng tạo K51",
+                text: "Cheatsheet này đầy đủ quá. Cho mình hỏi có cách nào để sửa lại message của commit cuối cùng mà chưa push không ạ?",
+              },
+              {
+                user: "Nguyễn Tân Khoa – Kỹ thuật phần mềm K46",
+                text: "@Trần Thuận Giàu – Công nghệ và Đổi mới sáng tạo K51Dùng lệnh git commit --amend bạn nhé. Nó sẽ mở lại trình soạn thảo để bạn sửa message của commit gần nhất.",
+              },
+              {
+                user: "Phạm Chí Thành – Robot và Trí tuệ nhân tạo K50",
+                text: 'Mình thấy dùng các công cụ giao diện (GUI) như Github Desktop hay Sourcetree cũng tiện, đỡ phải nhớ lệnh. Nhưng biết lệnh command line vẫn là "chân ái". Cảm ơn chủ thớt!',
+              },
+              {
+                user: "Nguyễn Huỳnh Anh Tuấn – Robot và Trí tuệ nhân tạo K49",
+                text: "Lưu về ngay! Mình hay bị lẫn lộn giữa git merge và git rebase. Cheatsheet giải thích ngắn gọn, dễ hiểu ghê.",
+              },
+              {
+                user: "Nguyễn Tấn Phú - Công nghệ và Đổi mới sáng tạo K51",
+                text: 'Một mẹo nhỏ cho mọi người là có thể tạo "bí danh" (alias) cho lệnh hay dùng. Ví dụ, mình đặt git st cho git status. Gõ nhanh hơn nhiều!',
+              },
+              {
+                user: "Nguyễn Tân Khoa – Kỹ thuật phần mềm K46 (Người đăng)",
+                text: "Cảm ơn mọi người đã đóng góp. Rất vui vì tài liệu hữu ích cho các bạn!",
+              },
+            ],
+          },
+          {
+            title: '[Hỏi đáp] Lỗi "null pointer exception" trong Java',
+            answers: [
+              {
+                user: "Trần Tâm Như - Công nghệ và đổi mới sáng tạo K51 (Người đăng)",
+                text: "Mọi người ơi, cứu em với! Em chạy code Java mà nó cứ báo lỗi java.lang.NullPointerException. Em không hiểu nó là lỗi gì và sửa như thế nào ạ? 😭",
+              },
+              {
+                user: "Nguyễn Thị Ngọc Ánh – Khoa học máy tính K49",
+                text: "NullPointerException xảy ra khi bạn cố gắng sử dụng một đối tượng chưa được khởi tạo (giá trị của nó là null). Ví dụ như gọi một phương thức từ một biến null.",
+              },
+              {
+                user: "Nguyễn Duy Anh – Khoa học máy tính K49",
+                text: "Bạn đăng đoạn code hoặc stack trace lên nhé, mọi người sẽ giúp chỉ ra lỗi cụ thể.",
+              },
+              {
+                user: "Nguyễn Tân Khoa – Kỹ thuật phần mềm K46",
+                text: "Em khai báo Student student; rồi gọi student.getName(); mà chưa khởi tạo student.",
+              },
+              {
+                user: "Trần Minh Hiếu – Công nghệ thông tin K50",
+                text: "Bạn cần khởi tạo đối tượng trước khi sử dụng: Student student = new Student();",
+              },
+              {
+                user: "Đặng Duy Anh - Kỹ thuật phần mềm K50",
+                text: "Ví dụ với chuỗi: String name = null; int length = name.length(); // Gây ra NPE.",
+              },
+              {
+                user: "Lê Thị Bích Ngọc - Kỹ thuật phần mềm K51",
+                text: "Luôn kiểm tra if (variable != null) trước khi sử dụng.",
+              },
+              {
+                user: "Nguyễn Thị Phương Thảo - Công nghệ và Đổi mới sáng tạo K51",
+                text: "Dùng Optional của Java 8 để xử lý giá trị có thể null.",
+              },
+              {
+                user: "Nguyễn Bích Ngọc - Khoa học máy tính K49",
+                text: "Khởi tạo giá trị mặc định cho biến để tránh lỗi.",
+              },
+              {
+                user: "Nguyễn Nhật Huy - Kỹ thuật phần mềm K49",
+                text: "Khi nào nên dùng if-else để check null, khi nào nên dùng Optional?",
+              },
+              {
+                user: "Trần Tâm Như - Công nghệ và đổi mới sáng tạo K51 (Người đăng)",
+                text: "Cảm ơn mọi người, em đã khởi tạo đối tượng và code chạy ngon rồi!",
+              },
+            ],
+          },
+        ],
+      };
+
+      const forumDataSaved = localStorage.getItem("forumData");
+      if (forumDataSaved) {
+        forumData = JSON.parse(forumDataSaved);
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const inspireBtn = document.querySelector(
+          "#homeView button.bg-white.text-red-600"
+        );
+        if (inspireBtn) {
+          let quoteDiv = document.getElementById("inspireQuote");
+          if (!quoteDiv) {
+            quoteDiv = document.createElement("div");
+            quoteDiv.id = "inspireQuote";
+            quoteDiv.className =
+              "mt-4 flex flex-col items-center justify-center p-4 rounded-xl bg-white/80 border border-red-200 text-red-700 text-lg font-semibold shadow transition";
+            quoteDiv.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" class="mb-2" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v20M2 12h20"/></svg>
+        <span></span>
+      `;
+            inspireBtn.parentNode.insertBefore(
+              quoteDiv,
+              inspireBtn.nextSibling
+            );
+          }
+
+          inspireBtn.addEventListener("click", function () {
+            const idx = Math.floor(Math.random() * inspiringQuotes.length);
+            quoteDiv.querySelector("span").textContent = inspiringQuotes[idx];
+            quoteDiv.classList.remove("hidden");
+            quoteDiv.style.opacity = 0;
+            setTimeout(() => {
+              quoteDiv.style.opacity = 1;
+              quoteDiv.style.transition = "opacity 0.5s";
+            }, 10);
+          });
+        }
+      });
+
+      function toggleForms() {
+        loginForm.classList.toggle("hidden");
+        registerForm.classList.toggle("hidden");
+      }
+
+      function showView(viewId) {
+        // Hide all views
+        views.forEach((view) => view.classList.add("hidden"));
+
+        // Show the selected view
+        const activeView = document.getElementById(viewId);
+        if (activeView) {
+          activeView.classList.remove("hidden");
+        }
+
+        // Update active state for nav links
+        navLinks.forEach((link) => link.classList.remove("active"));
+        const activeLink = document.getElementById(
+          "nav-" + viewId.replace("View", "")
+        );
+        if (activeLink) {
+          activeLink.classList.add("active");
+        }
+      }
+
+      // Lưu thông tin người dùng khi đăng ký
+      function handleRegister(event) {
+        event.preventDefault();
+        const fullname = document.getElementById("reg-fullname").value.trim();
+        const cohort = document.getElementById("reg-cohort").value.trim();
+        const major = document.getElementById("reg-major").value.trim();
+        // Lưu tên, khóa và ngành vào localStorage
+        localStorage.setItem(
+          "currentUser",
+          JSON.stringify({
+            fullname: fullname,
+            cohort: cohort,
+            major: major,
+          })
+        );
+        // Đăng nhập luôn sau khi đăng ký
+        handleLogin(event);
+      }
+
+      // Lưu thông tin người dùng khi đăng nhập (nếu đã đăng ký)
+      function handleLogin(event) {
+        event.preventDefault();
+        // Nếu đã có currentUser thì giữ nguyên, không ghi đè
+        if (!localStorage.getItem("currentUser")) {
+          // Nếu chưa đăng ký thì lấy tên mặc định
+          localStorage.setItem(
+            "currentUser",
+            JSON.stringify({
+              fullname: "Ẩn danh",
+              cohort: "",
+              major: "",
+            })
+          );
+        }
+        authSection.classList.add("hidden");
+        mainContent.classList.remove("hidden");
+        sessionStorage.setItem("isLoggedIn", "true");
+        showView("homeView");
+      }
+
+      // Gán lại sự kiện cho form đăng ký
+      document.querySelector("#registerForm form").onsubmit = handleRegister;
+
+      function handleLogout() {
+        authSection.classList.remove("hidden");
+        mainContent.classList.add("hidden");
+        sessionStorage.removeItem("isLoggedIn");
+        if (registerForm.classList.contains("hidden")) {
+          // login form is visible
+        } else {
+          toggleForms();
+        }
+        // Xóa thông tin người dùng khi đăng xuất (nếu muốn)
+        // localStorage.removeItem("currentUser");
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        if (sessionStorage.getItem("isLoggedIn") === "true") {
+          authSection.classList.add("hidden");
+          mainContent.classList.remove("hidden");
+          // Show home view by default if already logged in
+          showView("homeView");
+        }
+      });
+
+      const shareBtn = document.getElementById("shareBtn");
+      const shareInput = document.getElementById("shareInput");
+      const shareList = document.getElementById("shareList");
+
+      function loadShares() {
+        const shares = JSON.parse(localStorage.getItem("shares") || "[]");
+        shareList.innerHTML = "";
+        shares.forEach((share, idx) => {
+          const info = [share.fullname, share.cohort, share.major]
+            .filter(Boolean)
+            .join(", ");
+          const div = document.createElement("div");
+          div.className = "bg-white p-4 rounded shadow relative";
+          div.innerHTML = `
+      <div class="text-slate-700">${share.content}</div>
+      <div class="text-right text-sm font-semibold text-indigo-600 mt-2">
+        - ${info}
+      </div>
+      <button class="absolute top-2 right-2 text-red-500 hover:text-red-700 text-xs px-2 py-1 rounded" data-idx="${idx}" title="Xóa chia sẻ">X</button>
+    `;
+          shareList.appendChild(div);
+        });
+
+        // Gán sự kiện xóa cho từng nút X
+        shareList.querySelectorAll("button[data-idx]").forEach((btn) => {
+          btn.addEventListener("click", function () {
+            const idx = parseInt(this.getAttribute("data-idx"));
+            removeShare(idx);
+          });
+        });
+      }
+      function showForumDetail(category, idx) {
+        const modal = document.getElementById("forumModal");
+        const modalContent = document.getElementById("forumModalContent");
+        const topic = forumData[category][idx];
+        let html = `<h2 class="text-xl font-bold mb-4">${topic.title}</h2>`;
+        if (topic.answers) {
+          html += topic.answers
+            .map((ans, i) => {
+              if (category === "Khoa Công nghệ Thông tin") {
+                // Câu đầu tiên: chỉ hiện user, không số thứ tự, không "Trả lời"
+                if (i === 0) {
+                  return `<div class="mb-3"><span class="font-semibold text-indigo-700">${ans.user}:</span> <span>${ans.text}</span></div>`;
+                }
+                // Các câu sau: hiện số thứ tự đúng (bắt đầu từ 1), không cộng thêm 1
+                return `<div class="mb-3"><span class="font-semibold text-indigo-700">Trả lời ${i} (${ans.user}):</span> <span>${ans.text}</span></div>`;
+              }
+              // Khoa Kinh Tế giữ nguyên (bắt đầu từ 1)
+              return `<div class="mb-3"><span class="font-semibold text-indigo-700">Trả lời ${i + 1} (${ans.user}):</span> <span>${ans.text}</span></div>`;
+            })
+            .join("");
+        }
+        // Thêm form trả lời
+        html += `
+<form id="forumReplyForm" class="mt-4 flex flex-col gap-2">
+  <textarea id="forumReplyInput" rows="2" class="border rounded p-2" placeholder="Nhập câu trả lời của bạn..."></textarea>
+  <button type="submit" class="self-end bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Gửi trả lời</button>
+</form>
+`;
+        modalContent.innerHTML = html;
+        modal.classList.remove("hidden");
+
+        // Gán sự kiện gửi trả lời
+        document.getElementById("forumReplyForm").onsubmit = function (e) {
+          e.preventDefault();
+          const input = document.getElementById("forumReplyInput");
+          const value = input.value.trim();
+          if (!value) {
+            alert("Vui lòng nhập nội dung trả lời!");
+            return;
+          }
+          // Lấy thông tin người dùng
+          const user = JSON.parse(
+            localStorage.getItem("currentUser") ||
+              '{"fullname":"Ẩn danh","cohort":"","major":""}'
+          );
+          // Tạo tên người dùng hiển thị
+          const userInfo = [user.fullname, user.cohort, user.major]
+            .filter(Boolean)
+            .join(", ");
+          // Lưu vào forumData (chỉ lưu tạm thời trên client)
+          topic.answers.push({
+            user: userInfo || "Ẩn danh",
+            text: value,
+          });
+          input.value = "";
+          // Hiển thị lại popup với câu trả lời mới
+          showForumDetail(category, idx);
+
+          // Nếu muốn lưu lâu dài, có thể lưu vào localStorage (ví dụ dưới)
+          // Lưu lại toàn bộ forumData vào localStorage
+          localStorage.setItem("forumData", JSON.stringify(forumData));
+        };
+      }
+      document.getElementById("closeForumModal").onclick = function () {
+        document.getElementById("forumModal").classList.add("hidden");
+      };
+
+      document.getElementById("closeForumModal").onclick = function () {
+        document.getElementById("forumModal").classList.add("hidden");
+      };
+
+      // Đóng modal khi bấm ra ngoài hộp nội dung
+      document
+        .getElementById("forumModal")
+        .addEventListener("click", function (e) {
+          if (e.target === this) {
+            this.classList.add("hidden");
+          }
+        });
+
+      function removeShare(idx) {
+        const shares = JSON.parse(localStorage.getItem("shares") || "[]");
+        shares.splice(idx, 1);
+        localStorage.setItem("shares", JSON.stringify(shares));
+        loadShares();
+      }
+
+      shareBtn.addEventListener("click", function () {
+        sendShare();
+      });
+
+      // Thêm logic bấm Enter để gửi chia sẻ
+      shareInput.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" && !e.shiftKey) {
+          e.preventDefault();
+          sendShare();
+        }
+      });
+
+      function sendShare() {
+        const value = shareInput.value.trim();
+        if (value) {
+          const user = JSON.parse(
+            localStorage.getItem("currentUser") ||
+              '{"fullname":"Ẩn danh","cohort":"","major":""}'
+          );
+          const shares = JSON.parse(localStorage.getItem("shares") || "[]");
+          shares.unshift({
+            content: value,
+            fullname: user.fullname,
+            cohort: user.cohort,
+            major: user.major,
+          });
+          localStorage.setItem("shares", JSON.stringify(shares));
+          shareInput.value = "";
+          loadShares();
+        } else {
+          alert("Vui lòng nhập nội dung chia sẻ!");
+        }
+      }
+
+      // Hiển thị chia sẻ khi chuyển sang tab Tips
+      document.getElementById("nav-tips").addEventListener("click", loadShares);
+
+      // Nếu đang ở tipsView khi load trang thì cũng hiển thị
+      if (!document.getElementById("tipsView").classList.contains("hidden")) {
+        loadShares();
+      }
+    </script>
+  </body>
+</html>
